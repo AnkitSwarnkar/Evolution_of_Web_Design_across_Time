@@ -6,6 +6,10 @@ Temporal visualization of the trend of website design using low level visual fea
 # Goal
 Visualize the evolution of web design trend to understand the change in perspective of web designer 
 
+# Scripts in Directory
+* HSV Quantization for Color feature Extraction
+* Multi Texton Histogram for Texture feature Extraction
+
 # Description: 
 The goal of the study is to determine the trend of website design over time and to identify the impact of the change in website design on technology and culture. The idea is the create an intuitive visualization to study the trend of website design over time which was the medium used by web designers to communicate information. Also, automated analysis using computer vision and machine learning will be performed to achieve this goal.
 
@@ -22,3 +26,5 @@ From the research perspective, previous studies concerning website evolution mai
 The empirical-oriented branch of studies provided heuristics or checklists for the design of websites without many theoretical foundations (Flanders and Willis, 1998; Simon, 2001). For example, Cyr, Head, and Larios (2010) revealed how color affects trust or satisfaction from the users' (viewers') part. Rosen and Purinton (2004) identified several underlying dimensions of effective website design and "provided insight into design characteristics" (p.787).
 The second branch showed more theoretical views. For instance, Zhang and von Dran (2000) presented a two-factor model for website design and evaluation and found that hygiene and motivator are two important aspects. Specifically, hygiene factors make a website functional and serviceable; a website lacking hygiene factors will dissatisfy users. Nevertheless, motivator factors facilitate users to have more satisfactions. Spool et al. (1999) concentrated on the tasks in information retrieval and showcased usability studies on several websites of some big companies.
 Nevertheless, as far as we know, there are few studies that have researched on the evolution of website design with a temporal analysis. Therefore, this project aims to identify the trend of website design over time and the impacts of the change in website design in both technology and culture. Some automated analyses using computer vision and machine learning will be performed to achieve this goal.
+
+
