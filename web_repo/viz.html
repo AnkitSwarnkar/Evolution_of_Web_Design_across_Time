@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link href="css/bootstrap.css" rel="stylesheet">
+<style> /* set the CSS */
+body { 
+	font: 12px Arial;
+	color: #121401;
+}.axis path,
+.axis line {
+	fill: none;
+	stroke: #121401;
+	stroke-width: 2px;
+	shape-rendering: crispEdges;
+}div#legendContainer.form-group{
+	height:80px !important;
+}svg{
+	margin: auto !important;
+	display: block;
+}path {
+	stroke: #ccc;
+	stroke-width: 4;
+	fill: none;
+}input{
+	border-radius:5px;
+	padding:5px 10px;
+	background:#999;
+	border:0;
+	color:#fff;
+}svg#legend.form-check{
+	height:100px !important;
+}
+</style>
+<!-- load the d3.js library -->
+<script src="lib/d3.js"></script>
+<script src="lib/jquery.js"></script>
+<script src="lib/bootstrap.js"></script>
+<body>
+<div class="container">  
+  <div class="row">
+	<h3 style="text-align: center;">Visualizing the Evolution of Website Design</h3>
+	<h4 style="text-align: center;">Temporal visualization of the trend of website design using low level visual features (2002 -2017)</h4>
+	<h5 style="text-align: center;">Dataset: Screenshots of hundreds of websites over a period of almost 15 years</h5>
+	</br>
+    <div class="col-sm">		
+	<div class="form-group">
+	  <label for="Feature">Features:</label>
+	  <select id="feature" class="form-control">
+		<option value="Color">Color</option>
+		<option value="Luminance">Luminance</option>
+		<option value="Symmetry" selected="selected">Symmetry</option>
+		<option value="Texture">Texture</option>		
+		<option value="VisualComplexity">Visual Complexity</option>
+      </select>      
+	</div>
+		
+		
+	
+	<!-- load tlist of websites -->
+	<div class="form-group">
+	  <label for="Website">Websites:</label>
+	  <select id="inds" class="form-control">
+		<option value="all">all</option>
+		<option value="1stsource.com">1stsource.com</option>
+		<option value="aciworldwide.com">aciworldwide.com</option>
+		<option value="adobe.com" selected="selected">adobe.com</option>
+		<option value="aksteel.com">aksteel.com</option>
+		<option value="allscripts.com">allscripts.com</option>
+		<option value="ansys.com">ansys.com</option>
+		<option value="apple.com">apple.com</option>
+		<option value="appliedmaterials.com">appliedmaterials.com</option>
+		<option value="brinker.com">brinker.com</option>
+		<option value="broadcom.com">broadcom.com</option>
+		<option value="chevron.com">chevron.com</option>
+		<option value="cigna.com">cigna.com</option>
+		<option value="cisco.com">cisco.com</option>
+		<option value="compuware.com">compuware.com</option>
+		<option value="corporate.discovery.com">corporate.discovery.com</option>
+		<option value="cree.com">cree.com</option>
+		<option value="dillards.com">dillards.com</option>
+		<option value="dovercorporation.com">dovercorporation.com</option>
+		<option value="ea.com">ea.com</option>
+		<option value="ecolab.com">ecolab.com</option>
+		<option value="equinix.com">equinix.com</option>
+		<option value="equityapartments.com">equityapartments.com</option>
+		<option value="expedia.com">expedia.com</option>
+		<option value="extraspace.com">extraspace.com</option>
+		<option value="f5.com">f5.com</option>
+		<option value="factset.com">factset.com</option>
+		<option value="footlocker.com">footlocker.com</option>
+		<option value="fortinet.com">fortinet.com</option>
+		<option value="fult.com">fult.com</option>
+		<option value="goldmansachs.com">goldmansachs.com</option>
+		<option value="google.com">google.com</option>
+		<option value="h-net.org">h-net.org</option>		  
+		<option value="harris.com">harris.com</option>
+		<option value="iac.com">iac.com</option>		
+		<option value="idexcorp.com">idexcorp.com</option>
+		<option value="illumina.com">illumina.com</option>
+		<option value="imdb.com">imdb.com</option>
+		<option value="intuit.com">intuit.com</option>
+		<option value="itw.com">itw.com</option>
+		<option value="jabil.com">jabil.com</option>
+		<option value="kbhome.com">kbhome.com</option>
+		<option value="lazard.com">lazard.com</option>
+		<option value="marvell.com">marvell.com</option>
+		<option value="meredith.com">meredith.com</option>
+		<option value="mercuryinsurance.com">mercuryinsurance.com</option>
+		<option value="micron.com">micron.com</option>	  
+		<option value="morganstanley.com">morganstanley.com</option>
+		<option value="morningstar.com">morningstar.com</option>
+		<option value="nvrinc.com">nvrinc.com</option>
+		<option value="nytco.com">nytco.com</option>
+		<option value="officedepot.com">officedepot.com</option>
+		<option value="onebeacon.com">onebeacon.com</option>
+		<option value="paccar.com">paccar.com</option>
+		<option value="pandora.com">pandora.com</option>
+		<option value="paychex.com">paychex.com</option>
+		<option value="pentair.com">pentair.com</option>
+		<option value="perkinelmer.com">perkinelmer.com</option>	
+		<option value="perrigo.com">perrigo.com</option>
+		<option value="progressive.com">progressive.com</option>
+		<option value="publicstorage.com">publicstorage.com</option>
+		<option value="raymondjames.com">raymondjames.com</option>
+		<option value="raytheon.com">raytheon.com</option>
+		<option value="redhat.com">redhat.com</option>
+		<option value="regmovies.com">regmovies.com</option>
+		<option value="ryder.com">ryder.com</option>
+		<option value="salesforce.com">salesforce.com</option>
+		<option value="salliemae.com">salliemae.com</option>
+		<option value="schwab.com">schwab.com</option>
+		<option value="scripps.com">scripps.com</option>
+		<option value="searsholdings.com">searsholdings.com</option>
+		<option value="shop.nordstrom.com">shop.nordstrom.com</option>	
+		<option value="simon.com">simon.com</option>
+		<option value="skyworksinc.com">skyworksinc.com</option>
+		<option value="slb.com">slb.com</option>
+		<option value="slgreen.com">slgreen.com</option>
+		<option value="snapon.com">snapon.com</option>
+		<option value="southwest.com">southwest.com</option>
+		<option value="staples.com">staples.com</option>
+		<option value="starbucks.com">starbucks.com</option>
+		<option value="starwoodhotels.com">starwoodhotels.com</option>		  
+		<option value="tangeroutlet.com">tangeroutlet.com</option>
+		<option value="tdw.com">tdw.com</option>
+		<option value="teradyne.com">teradyne.com</option>
+		<option value="tetratec.com">tetratec.com</option>
+		<option value="ti.com">ti.com</option>
+		<option value="torchmarkcorp.com">torchmarkcorp.com</option>
+		<option value="travelers.com">travelers.com</option>
+		<option value="ups.com">ups.com</option>
+		<option value="valeant.com">valeant.com</option>
+		<option value="valmont.com">valmont.com</option>
+		<option value="verisign.com">verisign.com</option>
+		<option value="vishay.com">vishay.com</option>
+		<option value="walmart.com">walmart.com</option>
+		<option value="weatherford.com">weatherford.com</option>
+		<option value="wellsfargo.com">wellsfargo.com</option>
+		<option value="weyerhaeuser.com">weyerhaeuser.com</option>
+		<option value="www8.hp.com">www8.hp.com</option>
+		<option value="wynnresorts.com">wynnresorts.com</option>
+		<option value="xilinx.com">xilinx.com</option>
+		<option value="yum.com">yum.com</option>
+	  </select>
+	</div>
+    </div>	  
+	  <div class="col-sm">		  
+		  <div class="form-group" id="legendContainer">
+			<label for="ExtractionType" style="float: left">Feature Extraction Types:</label>
+			</br></br>
+      		<svg id="legend" class="form-check" style="float: left !important"></svg>
+		</div>
+	  </div>	
+  </div>
+</div>
+
+<div id="svg_div"></div>
+<script>
+
+function filterJSON(json, key, value) {
+  var result = [];
+  json.forEach(function(val,idx,arr){
+    if(val[key] == value){
+    
+      result.push(val)
+    }
+  })
+  return result;
+}
+
+// Set the dimensions of the canvas / graph
+var margin = {top: 40, right: 55, bottom: 60, left: 40},
+    width = 1200 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
+
+// Set the ranges
+var x = d3.scale.linear().range([0, width]);
+var y = d3.scale.linear().range([height, 0]);
+
+// Define the axes
+var xAxis = d3.svg.axis().scale(x)
+    .orient("bottom").ticks(15);
+
+var yAxis = d3.svg.axis().scale(y)
+    .orient("left").ticks(20);;
+
+// Define the line
+var stateline = d3.svg.line()
+		.interpolate("cardinal")
+    .x(function(d) { return x(d.year); })
+    .y(function(d) { return y(d.value); });
+	
+var color = d3.scale.category10(); 
+
+// Adds the svg canvas
+var svg = d3.select("#svg_div")
+    .append("svg")
+        .attr("width", width  + margin.left + margin.right)
+        .attr("height", height + margin.top  + margin.bottom)
+    .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+//var data;
+// Get the data
+d3.json("data/data.json", function(error, json) {
+  console.log(json)
+ 
+  json.forEach(function(d) {
+		d.value = +d.value;
+  });	
+
+	d3.select('#feature')
+			.on("change", function () {
+		
+				var feat = document.getElementById("feature");
+				var feat_val = feat.options[feat.selectedIndex].value;
+		
+				var sect = document.getElementById("inds");
+				var section = sect.options[sect.selectedIndex].value;
+		
+				data1 = filterJSON(json, 'feature', feat_val);
+				data = filterJSON(data1, 'website', section);
+	      
+				//debugger	      
+				data.forEach(function(d) {
+					d.value = +d.value;
+					//d.year = parseDate(String(d.year));
+					d.active = true;
+				});    		
+
+				//debugger
+				updateGraph(data);
+				//jQuery('h1.page-header').html(section);		
+
+				});
+	
+	d3.select('#inds')
+			.on("change", function () {
+				var feat1 = document.getElementById("feature");
+				var feat_val1 = feat1.options[feat1.selectedIndex].value;
+		
+				var sect1 = document.getElementById("inds");
+				var section1 = sect1.options[sect1.selectedIndex].value;
+
+				data_new1 = filterJSON(json, 'feature', feat_val1);
+				
+				data_new = filterJSON(data_new1, 'website', section1);
+		
+				data_new.forEach(function(d) {
+					d.value = +d.value;
+					//d.year = parseDate(String(d.year));
+					d.active = true;
+				});
+    		
+		    
+				//debugger
+				updateGraph(data_new);
+				//jQuery('h1.page-header').html(section);		
+
+				});
+
+	// generate initial graph	
+	data1 = filterJSON(json, 'feature', 'Symmetry');
+	data = filterJSON(data1, 'website', 'adobe.com');
+	updateGraph(data);
+
+});
+
+
+function updateGraph(data) {
+    // Scale the range of the data
+    x.domain(d3.extent(data, function(d) { return d.year; }));
+    y.domain([d3.min(data, function(d) { return d.value; }), d3.max(data, function(d) { return d.value; })]);
+
+    // Nest the entries by extraction type
+    dataNest = d3.nest().key(function(d) {return d.extraction_type;}).entries(data);
+
+ 	var result = dataNest.filter(function(val,idx, arr){
+				  	return $("." + val.key).attr("fill") != "#ccc" 
+				  // matching the data with selector status
+				 })	
+	
+	d3.select("#svg_div").selectAll("*").remove();
+	
+	svg = d3.select("#svg_div")
+    .append("svg")
+        .attr("width", width  + margin.left + margin.right)
+        .attr("height", height + margin.top  + margin.bottom)
+    .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+	
+ 	var series = svg.selectAll(".series")
+      						.data(result, function(d){return d.key});
+
+	series.enter().append("g")
+			.attr("class", "series");
+	
+	series.append("path")
+          .attr("class", "line")
+          .attr("d", function (d) { return stateline(d.values); })
+          .style("stroke", function (d) { return color(d.key); })
+          .style("stroke-width", "8px")
+          .style("fill", "none")
+
+	series.selectAll(".point")
+	  .data(function (d) { return d.values; })
+	  .enter().append("circle")
+	   .attr("class", "point")
+	   .attr("cx", function (d) { return x(d.year); })
+	   .attr("cy", function (d) { return y(d.value); })
+	   .attr("r", "6px")
+	   .style("fill", function (d) { return color(d.key); })
+	   .style("stroke", "grey")
+	   .style("stroke-width", "3px")
+	   .on("mouseover", function (d) { showPopover.call(this, d); })
+	   .on("mouseout",  function (d) { removePopovers(); })
+
+	series.exit().remove();
+	
+	var legend = d3.select("#legend")
+			.selectAll("text")
+			.data(dataNest, function(d){return d.key});
+
+	//checkboxes
+	legend.enter().append("rect")
+		  .attr("width", 10)
+		  .attr("height", 10)
+		  .attr("x", 0)
+		  .attr("y", function (d, i) { return 0 +i*15; })  // spacing
+		  .attr("fill",function(d) { 
+		    return color(d.key);
+		    
+	})
+		  .attr("class", function(d,i){return "legendcheckbox " + d.key})
+			.on("click", function(d){
+			  d.active = !d.active;
+			  
+			  d3.select(this).attr("fill", function(d){
+			    if(d3.select(this).attr("fill")  == "#ccc"){
+			      return color(d.key);
+			    }else {
+			      return "#ccc";
+			    }
+			  })
+			  
+			  
+				var result = dataNest.filter(function(val,idx, arr){
+					 return $("." + val.key).attr("fill") != "#ccc" 
+				   // matching the data with selector status
+				})
+
+				 //Hide or show the lines based on the ID
+				series =svg.selectAll(".series").data(result, function(d){return d.key})
+				 .enter()
+				 .append("g")
+				 .attr("class", "series")
+
+				series.append("path")
+				  .attr("class", "line")
+				  .attr("d", function (d) { return stateline(d.values); })
+				  .style("stroke", function(d) { return color(d.key); })
+				  .style("stroke-width", "8px")
+				  .style("fill", "none")
+
+				series.selectAll(".point")
+				  .data(function (d) { return d.values; })
+				  .enter().append("circle")
+				   .attr("class", "point")
+				   .attr("cx", function (d) { return x(d.year); })
+				   .attr("cy", function (d) { return y(d.value); })
+				   .attr("r", "6px")
+				   .style("fill", function (d) { return color(d.key); })
+				   .style("stroke", "grey")
+				   .style("stroke-width", "3px")
+				   .on("mouseover", function (d) { showPopover.call(this, d); })
+				   .on("mouseout",  function (d) { removePopovers(); })
+
+
+				svg.selectAll(".series").data(result, function(d){return d.key}).exit().remove();	
+			
+				})
+		        
+    // Add the Legend text
+    legend.enter().append("text")
+      .attr("x", 15)
+      .attr("y", function(d,i){return 10 +i*15;})
+      .attr("class", "legend");
+
+	legend.transition()
+      .style("fill", "#777" )
+      .text(function(d){return d.key;});
+
+	legend.exit().remove();
+
+	svg.selectAll(".axis").remove();
+
+    // Add the X Axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+	.append("text")
+		.attr("transform", "translate(550,50)")
+		.style("font-size", "18px")
+		.text("Year");
+
+    // Add the Y Axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+	.append("text")
+		.attr("transform", "translate(-40,-20)")
+		.style("font-size", "18px")
+		.text("Feature Value");	
+	
+	function removePopovers () {
+          $('.popover').each(function() {
+            $(this).remove();
+          }); 
+        }
+
+	function showPopover (d) {
+	  $(this).popover({
+		title: "<b>" + d.feature + " feature for " + d.website + " website</b>" ,
+		placement: 'auto top',
+		container: 'body',
+		trigger: 'manual',
+		html : true,
+		content: function() { 
+		  return "<b>Extraction Type:</b> " + d.extraction_type +
+		  		 "<br/><b>Year:</b> " + d.year + 
+				 "<br/><b>Feature Value:</b> " + d.value +
+					"<br/><b>Image: <img src='images/mean_from_2003_to_2017.gif' width='200px' height='200px' align='middle'>"; }
+	  });
+	  $(this).popover('show')
+	}
+};
+
+function clearAll(){
+  d3.selectAll(".line")
+	.transition().duration(100)
+			.attr("d", function(d){
+        return null;
+      });
+  d3.select("#legend").selectAll("rect")
+  .transition().duration(100)
+      .attr("fill", "#ccc");
+};
+
+function showAll(){
+  d3.selectAll(".line")
+	.transition().duration(100)
+			.attr("d", function(d){
+        return stateline(d.values);
+      });
+  d3.select("#legend").selectAll("rect")
+  .attr("fill",function(d) {
+    if (d.active == true){
+       return color(d.key);
+     }
+   })
+};
+
+</script>
+
+</body>
